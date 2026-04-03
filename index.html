@@ -356,22 +356,16 @@
   // ================================================================
   // START
   // ================================================================
-  window.onload = function() {
-    startScanner();
-    loadAbsensi();
-  };
-  
+ window.onload = function() {
+  startScanner();
+  loadAbsensi();
+
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/Fix-Gym-Scanner/sw.js')
-        .then(function(reg) {
-          console.log('SW registered:', reg.scope);
-        })
-        .catch(function(err) {
-          console.log('SW failed:', err);
-        });
-    });
+    navigator.serviceWorker.register('/Fix-Gym-Scanner/sw.js')
+      .then(function(reg) { console.log('SW registered:', reg.scope); })
+      .catch(function(err) { console.log('SW failed:', err); });
   }
+};
 
 </script>
 </body>
