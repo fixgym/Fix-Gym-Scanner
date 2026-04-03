@@ -1,11 +1,10 @@
 var CACHE = 'fixgym-v1';
 var ASSETS = [
-  '/',
-  '/index.html',
+  '/Fix-Gym-Scanner/',
+  '/Fix-Gym-Scanner/index.html',
   'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js'
 ];
 
-// Install — cache aset
 self.addEventListener('install', function(e) {
   e.waitUntil(
     caches.open(CACHE).then(function(cache) {
@@ -15,7 +14,6 @@ self.addEventListener('install', function(e) {
   self.skipWaiting();
 });
 
-// Activate — bersihkan cache lama
 self.addEventListener('activate', function(e) {
   e.waitUntil(
     caches.keys().then(function(keys) {
@@ -28,11 +26,8 @@ self.addEventListener('activate', function(e) {
   self.clients.claim();
 });
 
-// Fetch — cache-first, fallback ke network
 self.addEventListener('fetch', function(e) {
-  // Jangan cache request ke Google Apps Script
   if (e.request.url.includes('script.google.com')) return;
-
   e.respondWith(
     caches.match(e.request).then(function(cached) {
       return cached || fetch(e.request);
